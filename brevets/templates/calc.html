@@ -113,7 +113,8 @@
          </form>
          <script type="text/javascript">
             var SCRIPT_ROOT = {{ request.script_root|tojson|safe }} ;
-            var TIME_CALC_URL = SCRIPT_ROOT + "/_calc_times";
+            //var TIME_CALC_URL = SCRIPT_ROOT + "/_calc_times"; -->
+            var TIME_CALC_URL = "_calc_times";
 
             // FIX ME!
             // Right now, only the kilometers are passed
@@ -123,8 +124,9 @@
               var km = control.find("input[name='km']").val();
               var open_time_field = control.find("input[name='open']");
               var close_time_field = control.find("input[name='close']");
-
-              $.getJSON(TIME_CALC_URL, {km: km}).done(
+              var var_dist = $("#brevet_dist_km").val();
+              var var_date = $("#begin_date").val();
+              $.getJSON(TIME_CALC_URL, {km: km, brevet_distance: var_dist, brevet_start_date: var_date}).done(
                 function(data) {
                    var times = data.result;
                    console.log("Got a response: ");

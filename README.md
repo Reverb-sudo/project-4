@@ -1,6 +1,45 @@
 # UOCIS322 - Project 4 #
 You'll learn how to write test cases and test your code, along with more JQuery.
+## Outline
+This is a web-based application designed to calculate and display open and close times for respective KM/mile checkpoints for the RUSA ACP brevet.
 
+## Algorithm
+All open times for each passed control are added up as length from the prior control divided by the maximum speed for that control. If a control is not passed, the remainder is divided instead.
+
+(length from prior control to next control / max speed) +
+(length from prior control to next control / max speed) + ... + (remainder / max speed)
+
+The closed times are the same but with max speed replaced with minimum speed. There is an oddity where the closing time within the first 60 km is based on 20 km/hr plus 1 hour.
+
+The table is as follows:
+
+Control location (km)	Minimum Speed (km/hr)	Maximum Speed (km/hr)
+0 - 200										15												34
+200 - 400									15												32
+400 - 600									15												30
+600 - 1000								11.428										28
+1000 - 1300								13.333										26
+
+## How to use start
+
+run docker:
+docker build -t image-name .
+//where image-name is your choice of the docker image name.
+
+run image:
+docker run -d -p forwardedport:5000 image-name
+
+to run in your browser go to:
+http://localhost:forwardedport
+
+where forwardedport is an optional forwarded port.
+
+## How to use tests:
+to see docker containers:
+docker ps
+
+run tests:
+docker exec $(ID of container from docker ps)
 ## Overview
 
 You will reimplement RUSA ACP controle time calculator with Flask and AJAX.
@@ -8,9 +47,9 @@ You will reimplement RUSA ACP controle time calculator with Flask and AJAX.
 
 ### ACP controle times
 
-This project consists of a web application that is based on RUSA's online calculator. The algorithm for calculating controle times is described here [https://rusa.org/pages/acp-brevet-control-times-calculator](https://rusa.org/pages/acp-brevet-control-times-calculator). Additional background information is given here [https://rusa.org/pages/rulesForRiders](https://rusa.org/pages/rulesForRiders). The description is ambiguous, but the examples help. Part of finishing this project is clarifying anything that is not clear about the requirements, and documenting it clearly. 
+This project consists of a web application that is based on RUSA's online calculator. The algorithm for calculating controle times is described here [https://rusa.org/pages/acp-brevet-control-times-calculator](https://rusa.org/pages/acp-brevet-control-times-calculator). Additional background information is given here [https://rusa.org/pages/rulesForRiders](https://rusa.org/pages/rulesForRiders). The description is ambiguous, but the examples help. Part of finishing this project is clarifying anything that is not clear about the requirements, and documenting it clearly.
 
-We are essentially replacing the calculator here [https://rusa.org/octime_acp.html](https://rusa.org/octime_acp.html). We can also use that calculator to clarify requirements and develop test data. 
+We are essentially replacing the calculator here [https://rusa.org/octime_acp.html](https://rusa.org/octime_acp.html). We can also use that calculator to clarify requirements and develop test data.
 
 ## Tasks
 
@@ -21,7 +60,7 @@ We are essentially replacing the calculator here [https://rusa.org/octime_acp.ht
 	* This will effectively replicate the calulator above.
 
 * Edit the template and Flask app so that the required remaining arugments are passed along.
-	* Currently the miles to kilometers (and some other basic stuff) is implemented with AJAX. 
+	* Currently the miles to kilometers (and some other basic stuff) is implemented with AJAX.
 	* The remainder is left to you.
 
 * As always, revise the README file, and add your info to `Dockerfile`. These have points!
@@ -42,13 +81,13 @@ We should be able to run your test suite by changing to the `brevets` directory 
 * If your code works as expected: 100 points. This includes:
 
 	* Completing the frontend in `calc.html`.
-	
+
 	* Completing the Flask app accordingly (`flask_brevets.py`).
-	
+
 	* Implementing the logic in `acp_times.py`.
-	
+
 	* Updating `README` with a clear specification.
-	
+
 	* Writing at least **five** correct tests using nose (put them in `tests`, follow Project 3 if necessary) and all pass.
 
 * If the algorithm is incorrect, 25 points will be docked off.
@@ -59,7 +98,7 @@ We should be able to run your test suite by changing to the `brevets` directory 
 
 * If `README` is not clear, missing or not edited, or `Dockerfile` is not updated, up to 15 points will be docked off.
 
-* If none of the functionalities work, 10 points will be given assuming `credentials.ini` is submitted with the correct repo URL, and `Dockerfile` builds and runs without any errors. 
+* If none of the functionalities work, 10 points will be given assuming `credentials.ini` is submitted with the correct repo URL, and `Dockerfile` builds and runs without any errors.
 
 ## Authors
 
